@@ -22,7 +22,7 @@ db.on('connect', console.log.bind(console, 'MongoDB connection or'));
 
 
 
-app.use(express.static(__dirname + '/public/public'));
+app.use(express.static(__dirname + '/public/build'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ 'extended': 'true' }));
 app.use(bodyParser.json());
