@@ -1,0 +1,146 @@
+@import "https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900";
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-family: "Roboto", sans-serif;
+    height: 100vh;
+    background-color: #f1f1f1;
+    align-items: center;
+    justify-content: center;
+}
+
+.app {
+    align-items: center;
+    display: flex;
+    height: 90vh;
+    width: 800px;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    margin: auto;
+}
+
+input {
+    outline: 0 !important;
+}
+
+.signup-form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.edit-form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    color: green;
+    margin-bottom: 0;
+}
+
+.edit-form_field {
+    width: 85%;
+}
+
+.edit-form_field-input {
+    color: green;
+    width: 100%;
+    height: 100%;
+    font-size: 1.2em;
+    background-color: inherit;
+    border: 0;
+    border-bottom: 2px solid #f1f1f1;
+}
+
+.mdc-text-field {
+    width: 75%;
+    border-color: black;
+}
+
+.mdc-text-field__input {
+    width: 100%;
+    height: 100%;
+    font-size: 1.8em;
+    background-color: inherit;
+    border: 0;
+    border-bottom: 2px solid grey;
+}
+
+.task-item {
+    font-size: 1.1em;
+    display: flex;
+    width: 95%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+    border-bottom: 1px red;
+}
+
+.task-item_completed {
+    color: grey;
+}
+
+.task {
+    width: 80%;
+}
+
+time {
+    font-size: 0.7em;
+    color: grey;
+}
+
+.button {
+    background-color: #6200ee;
+    border-radius: 4px;
+    color: white;
+    padding: 10px;
+    font-size: 1.2em;
+    font-weight: 100;
+    border: 0;
+    outline: 0 !important;
+}
+
+.task-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.task-field {
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    margin-left: -20px;
+    margin-top: 0;
+    background-color: white;
+}
+
+.btn-action {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0.3;
+    font-size: 1.5em;
+    background-color: inherit;
+    border: 0;
+    outline: 0 !important;
+}
+
+.btn-action:hover {
+    opacity: 1;
+}
+
+.btn-action:before,
+.btn-action:after {
+    background-color: inherit;
+}

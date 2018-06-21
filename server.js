@@ -11,73 +11,62 @@ var Todo = mongoose.model('Todo', {
     completed: Boolean,
     date: String
 });
+var cors = require('cors')
 
-// configuration =================
 
-mongoose.connect('mongodb://heroku_12vzc7l8:1gp4hjiea583sib00ftk46698r@ds263710.mlab.com:63710/heroku_12vzc7l8'); // connect to mongoDB database on modulus.io
+mongoose.connect('mongodb://abcd:abcabc1@ds016118.mlab.com:16118/todonote')
+mongoose.Promise = global.Promise;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error'));
+db.on('connect', console.log.bind(console, 'MongoDB connection or'));
 
-app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
-app.use(morgan('dev')); // log every request to the console
-app.use(bodyParser.urlencoded({ 'extended': 'true' })); // parse application/x-www-form-urlencoded
-app.use(bodyParser.json()); // parse application/json
-app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
+
+
+app.use(express.static(__dirname + '/public/public'));
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({ 'extended': 'true' }));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
-
-app.get('*', function(req, res) {
-    res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
-});
-
-// listen (start app with node server.js) ======================================
-app.listen(8080);
-console.log("App listening on port 8080");
-
-// routes ======================================================================
+app.use(cors());
 
 // api ---------------------------------------------------------------------
 // get all todos
 app.get('/api/todos', function(req, res) {
+    Todo.find(
+        function(err, todos) {
+            if (err)
+                res.send(err)
 
-    // use mongoose to get all todos in the database
-    Todo.find(function(err, todos) {
-
-        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-        if (err)
-            res.send(err)
-
-        res.json(todos); // return all todos in JSON format
-    });
+            res.json(todos);
+        });
 });
 
-// create todo and send back all todos after creation
 app.post('/api/todos', function(req, res) {
-
-    // create a todo, information comes from AJAX request from Angular
     Todo.create({
-        text: req.body.text,
-        done: false
+        id: req.body.id,
+        value: req.body.value,
+        completed: req.body.completed,
+        date: req.body.date
     }, function(err, todo) {
         if (err)
             res.send(err);
 
-        // get and return all the todos after you create another
         Todo.find(function(err, todos) {
             if (err)
                 res.send(err)
             res.json(todos);
         });
     });
-
 });
 
-// delete a todo
-app.delete('/api/todos/:todo_id', function(req, res) {
+app.delete('/api/todos/', function(req, res) {
     Todo.remove({
-        _id: req.params.todo_id
+        id: req.body.id
     }, function(err, todo) {
         if (err)
             res.send(err);
 
-        // get and return all the todos after you create another
         Todo.find(function(err, todos) {
             if (err)
                 res.send(err)
@@ -85,3 +74,38 @@ app.delete('/api/todos/:todo_id', function(req, res) {
         });
     });
 });
+
+app.put('/api/todos', function(req, res) {
+    Todo.update({
+        id: req.body.id
+    }, { $set: { completed: req.body.completed } }, function(err, todo) {
+        if (err) res.send(err);
+
+        Todo.find(function(err, todos) {
+            if (err) res.send(err)
+            res.json(todos);
+        });
+    });
+});
+
+app.put('/api/todos:id', function(req, res) {
+    Todo.update({
+        id: req.body.id
+    }, { $set: { value: req.body.value } }, function(err, todo) {
+        if (err) res.send(err);
+
+        Todo.find(function(err, todos) {
+            if (err) res.send(err)
+            res.json(todos);
+        });
+    });
+});
+
+app.get('*', function(req, res) {
+    res.sendfile('./public/public/index.html');
+});
+
+const port = process.env.PORT || 5000;
+app.listen(port);
+
+console.log(`listening on ${port}`);
