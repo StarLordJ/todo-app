@@ -21,7 +21,7 @@ class App extends Component {
       let todo = {id: Date.now(), value: input.value, completed: false, date: strDate, edit: false};
       todos.push(todo);
       this.setState({todos: todos}, function(){
-        fetch('http://localhost:5000/api/todos', {
+        fetch('/api/todos', {
           method: 'POST',
           headers: {
               'Accept': 'application/json',
@@ -54,7 +54,7 @@ class App extends Component {
       }
       
       this.setState({todos: todos}, function(){
-        fetch('http://localhost:5000/api/todos:id', {
+        fetch('/api/todos:id', {
         method: 'PUT',
         headers: {
           'Accept': 'application/json',
@@ -89,7 +89,7 @@ class App extends Component {
       if (todos[i].id == task.id) {
         todos[i].completed = !todos[i].completed;
         this.setState({todos: todos}, function(){
-          fetch('http://localhost:5000/api/todos', {
+          fetch('/api/todos', {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
@@ -112,7 +112,7 @@ class App extends Component {
       }
     }
     this.setState({todos: todos}, function(){
-      fetch('http://localhost:5000/api/todos', {
+      fetch('/api/todos', {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
@@ -126,7 +126,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    fetch('http://localhost:5000/api/todos')
+    fetch('/api/todos')
       .then(response => {
         return response.json();
       })
