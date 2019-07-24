@@ -2,5 +2,5 @@
 https://todo-note.herokuapp.com/
 
 Первый проект на React.
-Backend: NodeJS
+Backend: NodeJS.
 DB: mongobd
